@@ -16,6 +16,18 @@ Key Characteristics:
 ### Deployment
 A Deployment is a controller that manages Pods and ensures they are running in the desired state. It allows you to define and manage the number of replicas (instances), updates, and rollbacks for your application.
 
+## Creating a Deployment
+We can start create a very first deployment using a public docker image.
+```shell
+kubectl create deployment nginx-deployment --image=nginx
+```
+
+The above deployment can be exposed outside the container & kubernetes using expose command.
+```shell
+kubectl expose deployment nginx-deploment --type=LoadBalancer --port=8080 --target-port=80
+```
+The above command creates a service for the 'nginx-deployment' deployment with a LoadBalancer type, enabling access to our Kubernetes cluster from outside the container.
+
 ## Build Docker Image
 
 Since k8 can't use local docker image, so we need to push it to the container registry. To build php image
@@ -100,4 +112,9 @@ kubectl logs <nginx-pod-name>
 Scaling a deployment by running the following commands:
 ```shell
 kubectl scale deployment <nginx-deployment> --replicas=1
+```
+
+### Applying changes
+```shell
+kubectl apply -f k8s/nginx-service.yaml
 ```
