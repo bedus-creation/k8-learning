@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: php
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: php
+    template:
+        metadata:
+            labels:
+                app: php
+        spec:
+            containers:
+                -   name: php
+                    image: 9813276057/application-php
+                    ports:
+                        -   containerPort: 9000
+                    volumeMounts:
+                        -   mountPath: /var/www/html
+                            name: application-volume
+            volumes:
+                -   name: application-volume
+                    hostPath:
+                        path: /Users/ellite/code/docker/application/application
+                        type: Directory

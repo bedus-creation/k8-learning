@@ -1,0 +1,23 @@
+services:
+    nginx:
+        build: ./nginx/
+        ports:
+            - "8080:80"
+        volumes:
+            - ./application:/var/www/html
+        depends_on:
+            - php
+        networks:
+            - app-network
+    php:
+        build: ./php/
+        expose:
+            - "9000"
+        volumes:
+            - ./application/:/var/www/html/
+        networks:
+            - app-network
+
+networks:
+    app-network:
+        driver: bridge
