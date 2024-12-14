@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: mysql
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: mysql
+    template:
+        metadata:
+            labels:
+                app: mysql
+        spec:
+            containers:
+                -   name: mysql
+                    image: mysql:8.3
+                    env:
+                        -   name: MYSQL_ROOT_PASSWORD
+                            value: "12345678"
+                        -   name: MYSQL_DATABASE
+                            valueFrom:
+                                secretKeyRef:
+                                    name: env-secret
+                                    key: DB_DATABASE
+                        -   name: MYSQL_USER
+                            valueFrom:
+                                secretKeyRef:
+                                    name: env-secret
+                                    key: DB_USERNAME
+                        -   name: MYSQL_PASSWORD
+                            valueFrom:
+                                secretKeyRef:
+                                    name: env-secret
+                                    key: DB_PASSWORD
+                    volumeMounts:
+                        -   name: mysql-data
+                            mountPath: /var/lib/mysql
+                    ports:
+                        -   containerPort: 3306
+            volumes:
+                -   name: mysql-data
+                    persistentVolumeClaim:
+                        claimName: mysql-pvc
