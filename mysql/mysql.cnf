@@ -1,0 +1,11 @@
+[mysqld]
+innodb_buffer_pool_size=700M
+
+log-bin=binlog
+binlog_format=mixed
+expire_logs_days=1
+max_binlog_size=100M
+
+skip-name-resolve=OFF
+
+bind-address = 0.0.0.0
