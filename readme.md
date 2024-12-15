@@ -64,8 +64,8 @@ nginx               NodePort       192.168.194.181   <none>         8080:32539/T
 nginx-deploment-1   LoadBalancer   192.168.194.248   198.19.249.2   8081:32479/TCP   34h
 mysql               NodePort       192.168.194.218   <none>         4406:32740/TCP   105m
 ```
-* nginx-deploment-1 Service:
-External IP: 198.19.249.2 (assigned via LoadBalancer) and Exposed Port (NodePort): 32479, so it can be acessed from `http://198.19.249.2:8081`
+* nginx-deployment-1 Service:
+External IP: 198.19.249.2 (assigned via LoadBalancer) and Exposed Port (NodePort): 32479, so it can be accessed from `http://198.19.249.2:32539`
 
 * NodePort Service (nginx):
 For NodePort services, the application is accessible via: `http://<node-ip>:32539` Here, <node-ip> refers to the IP of the node running the cluster. If it's running on orbstack: `kubectl get nodes 

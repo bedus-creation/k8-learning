@@ -23,5 +23,5 @@ spec:
             volumes:
                 -   name: application-volume
                     hostPath:
-                        path: /Users/ellite/code/docker/application/application
+                        path: /Users/ellite/code/docker/k8/application
                         type: Directory
