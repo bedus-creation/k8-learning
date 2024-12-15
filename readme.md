@@ -16,7 +16,9 @@ Key Characteristics:
 ### Deployment
 A Deployment is a controller that manages Pods and ensures they are running in the desired state. It allows you to define and manage the number of replicas (instances), updates, and rollbacks for your application.
 
-## Install kubectl
+### Install kubectl
+The Kubernetes command-line tool, kubectl, allows you to run commands against Kubernetes clusters. You can use kubectl to deploy applications, inspect and manage cluster resources, and view logs.
+[Link](https://kubernetes.io/docs/tasks/tools/)
 
 ## Hello World in Kubernetes
 We can start create a very first deployment using a public docker image.
