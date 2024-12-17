@@ -1,20 +1,12 @@
 services:
-    nginx:
-        build: ./nginx/
+    php:
         ports:
             - "8080:80"
-        volumes:
-            - ./application:/var/www/html
-        depends_on:
-            - php
-        networks:
-            - app-network
-    php:
         build: ./php/
         expose:
             - "9000"
         volumes:
-            - ./application/:/var/www/html/
+            - ./application/:/var/www/html/application
         networks:
             - app-network
 
