@@ -1,3 +1,14 @@
+# Kubernetes Learning
+* [x] Hello world application in Kubernetes
+* [x] Build a custom docker image for PHP, nginx application & publish to the docker Hub
+* [x] Write a deployment script for PHP,Nginx & Mysql using the custom docker image build previously
+* [x] Install laravel application and configured to run inside kubernetes clusters
+* [ ] Scale the Laravel application horizontally
+* [ ] Write more advance scaling logic to scale application based on cpu use etc.
+* [ ] Load Test
+* [ ] Scale MySQL database using [Vitess](https://planetscale.com/blog/what-is-vitess)
+* [ ] use redis as session storage and scale it
+
 ## Pod, Service & Deployment
 A Pod is the smallest deployable unit in Kubernetes. It represents a single instance of a running process in your cluster.
 
@@ -64,8 +75,8 @@ nginx               NodePort       192.168.194.181   <none>         8080:32539/T
 nginx-deploment-1   LoadBalancer   192.168.194.248   198.19.249.2   8081:32479/TCP   34h
 mysql               NodePort       192.168.194.218   <none>         4406:32740/TCP   105m
 ```
-* nginx-deploment-1 Service:
-External IP: 198.19.249.2 (assigned via LoadBalancer) and Exposed Port (NodePort): 32479, so it can be acessed from `http://198.19.249.2:8081`
+* nginx-deployment-1 Service:
+External IP: 198.19.249.2 (assigned via LoadBalancer) and Exposed Port (NodePort): 32479, so it can be accessed from `http://198.19.249.2:32539`
 
 * NodePort Service (nginx):
 For NodePort services, the application is accessible via: `http://<node-ip>:32539` Here, <node-ip> refers to the IP of the node running the cluster. If it's running on orbstack: `kubectl get nodes 
@@ -145,7 +156,7 @@ echo "Connected successfully!";
 Since k8 can't use local docker image, so we need to push it to the container registry. To build php image
 
 ```bash
-docker build -t 9813276057/application-php ./php/
+docker build -t 9813276057/application-php:v0.0.1 ./php/
 ```
 
 To build the nginx Image
@@ -157,7 +168,7 @@ docker build -t 9813276057/application-nginx ./nginx/
 After building the images, push it to the container hub:
 
 ```bash
-docker push 9813276057/application-php
+docker push 9813276057/application-php:v0.0.1
 ```
 
 ```bash

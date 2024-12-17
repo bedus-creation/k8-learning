@@ -15,18 +15,23 @@ RUN apt-get update \
 
 RUN apt-get update \
     && apt-get install -y \
-    php8.3-fpm php8.3-cli \
-    php8.3-mysql \
-    php8.3-mbstring \
+    vim \
+    nginx \
+    php8.3-fpm php8.3-cli php8.3-mysql php8.3-xml php8.3-mbstring \
     && apt-get -y autoremove \
     && apt-get clean \
+    && php -r "readfile('http://getcomposer.org/installer');" | php -- --install-dir=/usr/bin/ --filename=composer \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Set the working directory inside the container
 WORKDIR /var/www/html
 COPY www.conf /etc/php/8.3/fpm/pool.d/www.conf
+COPY default /etc/nginx/sites-available/default
+
+COPY start.sh /usr/local/bin/start.sh
+RUN chmod +x /usr/local/bin/start.sh
 
 # Expose port 9000 for PHP-FPM (optional, for connecting to other services)
-EXPOSE 9000
+EXPOSE 80
 
-CMD ["php-fpm8.3", "-F"]
+CMD ["sh", "/usr/local/bin/start.sh"]

@@ -14,14 +14,15 @@ spec:
         spec:
             containers:
                 -   name: php
-                    image: 9813276057/application-php
+                    image: 9813276057/application-php:v0.0.1
+                    imagePullPolicy: Always
                     ports:
-                        -   containerPort: 9000
+                        -   containerPort: 80
                     volumeMounts:
-                        -   mountPath: /var/www/html
+                        -   mountPath: /var/www/html/application
                             name: application-volume
             volumes:
                 -   name: application-volume
                     hostPath:
-                        path: /Users/ellite/code/docker/application/application
+                        path: /Users/ellite/code/docker/k8/application
                         type: Directory
