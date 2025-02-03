@@ -9,9 +9,9 @@
 * [ ] Scale MySQL database using [Vitess](https://planetscale.com/blog/what-is-vitess)
   * [x] Setup Vitest
   * [ ] Sharding
-* [ ] Scale MySQL database using [Percona](https://docs.percona.com/percona-operator-for-mysql/ps/kubernetes.html)
-  * [x] setup Percona
-  * [x] Horizontal Scaling
+* [x] Scale MySQL database using [Percona](https://docs.percona.com/percona-operator-for-mysql/ps/kubernetes.html)
+  * [x] [setup Percona](https://github.com/bedus-creation/k8-learning/tree/main/k8s/percona#setup)
+  * [x] [Horizontal Scaling](https://github.com/bedus-creation/k8-learning/tree/main/k8s/percona#horizontal-scaling)
 * [ ] use redis as session storage and scale it
 
 ## Pod, Service & Deployment

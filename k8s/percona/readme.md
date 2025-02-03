@@ -1,60 +1,61 @@
 # Percona
+Percona MySQL (or Percona Server for MySQL) is an enhanced, open-source version of MySQL that offers performance improvements, advanced features, and enterprise-level support. It is fully compatible with MySQL, meaning it can be used as a drop-in replacement for MySQL with minimal changes required.
+
+Here are some key features of Percona Server for MySQL:
+* Scalability
+* Performance Improvements
+* Percona XtraBackup
+* High Availability
 
 ## Setup
-First of all, clone the percona-server-mysql-operator repository:
+First of all, clone the repository:
 ```shell
-git clone -b v0.8.0 https://github.com/percona/percona-server-mysql-operator
-cd percona-server-mysql-operator
+git clone https://github.com/bedus-creation/k8-learning/tree/main 
+cd k8-learning
 ```
-Note
-
-It is crucial to specify the right branch with -b option while cloning the code on this step. Please be careful.
-
-Now Custom Resource Definition for Percona Server for MySQL should be created from the deploy/crd.yaml file. Custom Resource Definition extends the standard set of resources which Kubernetes “knows” about with the new items (in our case ones which are the core of the operator). Apply it  as follows:
-
 
 ```shell
-kubectl apply --server-side -f deploy/crd.yaml
+kubectl apply --server-side -f k8s/percona/crd.yaml
 ```
 This step should be done only once; it does not need to be repeated with the next Operator deployments, etc.
 
 The next thing to do is to add the mysql namespace to Kubernetes, not forgetting to set the correspondent context for further steps:
 
-
 ```shell
 kubectl create namespace mysql
-$ kubectl config set-context $(kubectl config current-context) --namespace=mysql
+kubectl config set-context $(kubectl config current-context) --namespace=mysql
 ```
-Note
-
 You can use different namespace name or even stay with the Default one.
 
-Now RBAC (role-based access control) for Percona Server for MySQL should be set up from the deploy/rbac.yaml file. Briefly speaking, role-based access is based on specifically defined roles and actions corresponding to them, allowed to be done on specific Kubernetes resources (details about users and roles can be found in Kubernetes documentation ).
+Now RBAC (role-based access control) for Percona Server for MySQL should be set up from the `k8s/percona/rbac.yaml` file. Briefly speaking, role-based access is based on specifically defined roles and actions corresponding to them, allowed to be done on specific Kubernetes resources (details about users and roles can be found in Kubernetes documentation ).
 
 
-$ kubectl apply -f deploy/rbac.yaml
-Note
+```shell
+kubectl apply -f deploy/rbac.yaml
+```
 
 Setting RBAC requires your user to have cluster-admin role privileges. For example, those using Google Kubernetes Engine can grant user needed privileges with the following command: $ kubectl create clusterrolebinding cluster-admin-binding --clusterrole=cluster-admin --user=$(gcloud config get-value core/account)
 
 Finally it’s time to start the operator within Kubernetes:
 
 
-$ kubectl apply -f deploy/operator.yaml
+```shell
+kubectl apply -f k8s/percona/operator.yaml
+```
 Now that’s time to add the Percona Server for MySQL Users secrets to Kubernetes. They should be placed in the data section of the deploy/secrets.yaml file as logins and plaintext passwords for the user accounts (see Kubernetes documentation  for details).
 
 After editing is finished, users secrets should be created using the following command:
 
 
 ```shell
-kubectl create -f deploy/secrets.yaml
+kubectl create -f k8s/percona/secrets.yaml
 ````
 
 
 ```shell
-kubectl apply -f deploy/cr.yaml
+kubectl apply -f k8s/percona/cr.yaml
 ```
-Creation process will take some time. The process is over when both operator and replica set pod have reached their Running status. kubectl get pods output should look like this:
+Creation process will take some time. The process is over when both operator and replica set pod have reached their Running status. `kubectl get pods` output should look like this:
 
 NAME                                                 READY   STATUS    RESTARTS        AGE
 cluster1-mysql-0                                     1/1     Running   0               7m6s
@@ -70,7 +71,9 @@ Here’s how to get it:
 List the Secrets objects.
 
 
-$ kubectl get secrets
+```shell
+kubectl get secrets
+```
 It will show you the list of Secrets objects (by default the Secrets object you are interested in has cluster1-secrets name).
 Use the following command to get the password of the root user. Substitute cluster1 with your value, if needed:
 
