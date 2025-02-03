@@ -3,10 +3,15 @@
 * [x] Build a custom docker image for PHP, nginx application & publish to the docker Hub
 * [x] Write a deployment script for PHP,Nginx & Mysql using the custom docker image build previously
 * [x] Install laravel application and configured to run inside kubernetes clusters
-* [ ] Scale the Laravel application horizontally
+* [x] Scale the Laravel application horizontally
 * [ ] Write more advance scaling logic to scale application based on cpu use etc.
 * [ ] Load Test
 * [ ] Scale MySQL database using [Vitess](https://planetscale.com/blog/what-is-vitess)
+  * [x] Setup Vitest
+  * [ ] Sharding
+* [ ] Scale MySQL database using [Percona](https://docs.percona.com/percona-operator-for-mysql/ps/kubernetes.html)
+  * [x] setup Percona
+  * [x] Horizontal Scaling
 * [ ] use redis as session storage and scale it
 
 ## Pod, Service & Deployment
@@ -173,4 +178,14 @@ docker push 9813276057/application-php:v0.0.1
 
 ```bash
 docker push 9813276057/application-nginx
+```
+
+### Vitess
+```bash
+DB_CONNECTION=mysql
+DB_HOST=example-vtgate-ae7df4b6
+DB_PORT=3306
+DB_DATABASE=commerce
+DB_USERNAME=user
+DB_PASSWORD=
 ```
