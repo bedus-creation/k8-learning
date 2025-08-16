@@ -25,10 +25,11 @@ RUN apt-get update \
 
 # Set the working directory inside the container
 WORKDIR /var/www/html
-COPY www.conf /etc/php/8.3/fpm/pool.d/www.conf
-COPY default /etc/nginx/sites-available/default
+COPY docker/www.conf /etc/php/8.3/fpm/pool.d/www.conf
+COPY docker/default /etc/nginx/sites-available/default
+COPY ./ /var/www/html/application
 
-COPY start.sh /usr/local/bin/start.sh
+COPY docker/start.sh /usr/local/bin/start.sh
 RUN chmod +x /usr/local/bin/start.sh
 
 # Expose port 9000 for PHP-FPM (optional, for connecting to other services)

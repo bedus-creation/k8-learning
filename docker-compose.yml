@@ -5,8 +5,6 @@ services:
         build: ./php/
         expose:
             - "9000"
-        volumes:
-            - ./application/:/var/www/html/application
         networks:
             - app-network
 

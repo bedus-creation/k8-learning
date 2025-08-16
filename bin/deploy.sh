@@ -1,6 +1,3 @@
-# Restart all the deployment
-kubectl delete deployments --all
-
 # Create kubernetes secret from env
 kubectl create secret generic env-secret --from-env-file=./application/.env --dry-run=client -o yaml > k8s/env-secret.yaml
 kubectl apply -f k8s/env-secret.yaml

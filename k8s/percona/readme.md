@@ -31,7 +31,7 @@ Now RBAC (role-based access control) for Percona Server for MySQL should be set 
 
 
 ```shell
-kubectl apply -f deploy/rbac.yaml
+kubectl apply -f k8s/percona/rbac.yaml
 ```
 
 Setting RBAC requires your user to have cluster-admin role privileges. For example, those using Google Kubernetes Engine can grant user needed privileges with the following command: $ kubectl create clusterrolebinding cluster-admin-binding --clusterrole=cluster-admin --user=$(gcloud config get-value core/account)
